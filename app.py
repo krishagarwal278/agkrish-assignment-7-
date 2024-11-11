@@ -199,9 +199,9 @@ def hypothesis_test():
     plt.hist(simulated_stats, bins=20, alpha=0.5, color="gray")
     plt.axvline(observed_stat, color="blue", linestyle="--", label=f"Observed {parameter.capitalize()}: {observed_stat:.2f}")
     plt.axvline(hypothesized_value, color="red", linestyle="--", label=f"Hypothesized {parameter.capitalize()}: {hypothesized_value:.2f}")
-    plt.title(f"Histogram of Simulated {parameter.capitalize()}s with p-value")
-    plt.xlabel("Value")
-    plt.ylabel("Frequency")
+    plt.title(f"Histogram of the Simulated {parameter.capitalize()}s with p-value")
+    plt.xlabel("Value (X-axis)")
+    plt.ylabel("Frequency (Y-axis)")
     plt.legend()
     plt.savefig(plot3_path)
     plt.close()
@@ -249,11 +249,11 @@ def confidence_interval():
     if parameter == "slope":
         estimates = np.array(slopes)
         observed_stat = slope
-        true_param = beta1
+        true_parameter = beta1
     else:
         estimates = np.array(intercepts)
         observed_stat = intercept
-        true_param = beta0
+        true_parameter = beta0
 
     # TODO 14: Calculate mean and standard deviation of the estimates
     mean_estimate = np.mean(estimates)
@@ -261,13 +261,13 @@ def confidence_interval():
 
     # TODO 15: Calculate confidence interval for the parameter estimate
     # Use the t-distribution and confidence_level
-    t_value = t.ppf((1 + confidence_level) / 2, df=S - 1)
-    margin_of_error = t_value * (std_estimate / np.sqrt(S))
+    t_val = t.ppf((1 + confidence_level) / 2, df=S - 1)
+    margin_of_error = t_val * (std_estimate / np.sqrt(S))
     ci_lower = mean_estimate - margin_of_error
     ci_upper = mean_estimate + margin_of_error
 
     # TODO 16: Check if confidence interval includes true parameter
-    includes_true = ci_lower <= true_param <= ci_upper
+    includes_true = ci_lower <= true_parameter <= ci_upper
 
     # TODO 17: Plot the individual estimates as gray points and confidence interval
     # Plot the mean estimate as a colored point which changes if the true parameter is included
@@ -280,10 +280,10 @@ def confidence_interval():
     plt.axhline(mean_estimate, color="blue", linestyle="--", label=f"Mean Estimate: {mean_estimate:.2f}")
     plt.plot([0, S-1], [ci_lower, ci_lower], color="green", linestyle="--", label=f"Confidence Interval ({confidence_level*100}%)")
     plt.plot([0, S-1], [ci_upper, ci_upper], color="green", linestyle="--")
-    plt.axhline(true_param, color="red", linestyle="--", label=f"True {parameter.capitalize()}: {true_param:.2f}")
+    plt.axhline(true_parameter, color="red", linestyle="--", label=f"True {parameter.capitalize()}: {true_parameter:.2f}")
     plt.title(f"{parameter.capitalize()} Confidence Interval")
-    plt.xlabel("Simulation")
-    plt.ylabel("Estimate Value")
+    plt.xlabel("Simulation (X-axis)")
+    plt.ylabel("Estimate Value (Y-axis)")
     plt.legend()
     plt.savefig(plot4_path)
     plt.close()
