@@ -158,14 +158,14 @@ def generate():
 @app.route("/hypothesis_test", methods=["POST"])
 def hypothesis_test():
     # Retrieve data from session
-    N = session.get("N")
-    S = session.get("S")
-    slope = session.get("slope")
-    intercept = session.get("intercept")
+    N = int(session.get("N"))
+    S = int(session.get("S"))
+    slope = float(session.get("slope"))
+    intercept = float(session.get("intercept"))
     slopes = session.get("slopes")
     intercepts = session.get("intercepts")
-    beta0 = session.get("beta0")
-    beta1 = session.get("beta1")
+    beta0 = float(session.get("beta0"))
+    beta1 = float(session.get("beta1"))
 
     parameter = request.form.get("parameter")
     test_type = request.form.get("test_type")
@@ -227,16 +227,16 @@ def hypothesis_test():
 @app.route("/confidence_interval", methods=["POST"])
 def confidence_interval():
     # Retrieve data from session
-    N = session.get("N")
-    mu = session.get("mu")
-    sigma2 = session.get("sigma2")
-    beta0 = session.get("beta0")
-    beta1 = session.get("beta1")
-    S = session.get("S")
+    N = int(session.get("N"))
+    mu = float(session.get("mu"))
+    sigma2 = float(session.get("sigma2"))
+    beta0 = float(session.get("beta0"))
+    beta1 = float(session.get("beta1"))
+    S = int(session.get("S"))
     X = np.array(session.get("X"))
     Y = np.array(session.get("Y"))
-    slope = session.get("slope")
-    intercept = session.get("intercept")
+    slope = float(session.get("slope"))
+    intercept = float(session.get("intercept"))
     slopes = session.get("slopes")
     intercepts = session.get("intercepts")
 
@@ -308,11 +308,6 @@ def confidence_interval():
         beta1=beta1,
         S=S,
     )
-
-@app.errorhandler(500)
-def internal_error(error):
-    return str(error), 500
-
 
 if __name__ == "__main__":
     app.run(debug=True)
